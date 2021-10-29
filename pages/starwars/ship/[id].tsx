@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    console.log(params)
+    console.log('params', params)
 
     let ship = await getShipInfo(params.id)
     return {
