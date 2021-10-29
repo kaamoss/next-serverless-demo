@@ -40,7 +40,8 @@ Create a Free tier AWS account. For your "root" user, go into the IAM server, go
 
 * Note, if you have a newer AWS account, they try to discourage you from creating IAM credentials for your root user. Instead on the left sidebar of the IAM homepage, look for a section called quick links, and click my security credentials. Then you need to open the IAM accordian and generate/save the key/secret.
 
-[IAM Homepage Quicklinks to create access key/secret for root user](/iam-screenshot.png?raw=true "IAM Homepage Quicklinks to create access key/secret for root user")
+### IAM Homepage Quicklinks to create access key/secret for root user
+[![iam-screenshot.png](https://i.postimg.cc/6qG83P02/iam-screenshot.png)](https://postimg.cc/64tWbYFt)
 
 You might have guessed it, next step, install the aws-cli following [these instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html).
 
