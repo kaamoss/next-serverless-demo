@@ -1,34 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+# Node Setup
+Install NVM with homebrew
 
 ```bash
-npm run dev
-# or
-yarn dev
+brew update
+brew install nvm
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If the directory doesn't exist already, make it: mkdir `~/.nvm`
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+If this line isn't in your bash profile already, add it:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+* Note, if you have upgraded mac os x recently and switch to zsh, you may need to do the following:
 
-## Learn More
+```bash
+echo "source ~/.bash_profile" >> ~/.zshrc
+```
 
-To learn more about Next.js, take a look at the following resources:
+The above will load your bash_profile in the zsh shell.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Now, let's get the version of node we want, let's go with the bleeding edge latest:
+`nvm install 17.0.1`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Serverless Setup
 
-## Deploy on Vercel
+If you don't already have it, let's get yarn into the mix, run:
+`npm install -g yarn`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Serverless:
+`yarn global add sls @sls-next/serverless-component`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# AWS Setup
+
+Create a Free tier AWS account. For your "root" user, go into the IAM server, go to Users on the left nav, click on your user in the table, then click on the "Security Credentials" tab, then the "Create access key" button, and get your access key/secret. You will want to write this down somewhere safe, and we will need to add it to local configs for the aws cli
+
+You might have guessed it, next step, install the aws-cli following [these instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html).
+
+The main thing to do is the following to either do the initial install or upgrade and existing install
+
+```bash
+curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+sudo installer -pkg AWSCLIV2.pkg -target /
+```
+
+Next, we need to setup your aws credentials.
+`mkdir ~/.aws` if this directory doesn't exist already.
+
+Next, create a file in that directory called credentials with the following content:
+
+```bash
+[default]
+aws_access_key_id = YOUR_KEY_HERE
+aws_secret_access_key = YOUR_SECRET_HERE
+
+[secondary]
+aws_access_key_id = YOUR_OTHER_KEY_HERE
+aws_secret_access_key = YOUR_OTHER_SECRET_HERE
+```
+
+BTW, the secondary section is optional. AWS allows you to have named profiles which is useful if you say have a personal AWS account, but also work with our Incentify AWS account, or perhaps you work with our developer AWS account, and our production incentify AWS account like Nick and I, named profiles are there to help you with this.
+
+create a file in that directory (`~/.aws`) called config with the following content:
+
+```bash
+[default]
+region = us-west-2
+
+[profile secondary]
+region=us-west-2
+```
+
+Now, let's get into next!
+
+`yarn create next-app next-serverless-demo --ts`
+
+Create new pages, Links, Images, CSS modules, etc
+
+`yarn add @apollo/client graphql`
+
+Pre-rendering: Static Generation vs Server Side rendering. Can be defined per page 
+
+# Static Generation uses getStaticProps:
+* getStaticProps runs at build time in production, and…
+* Inside the function, you can fetch external data and send it as props to the page.
