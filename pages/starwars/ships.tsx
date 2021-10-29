@@ -59,7 +59,7 @@ export async function getServerSideProps(context) {
         <div className={styles.grid}>
             {props.ships.edges.map(edge => {
                 return (
-                <a key={edge.node.id} href="#" className={styles.card}>
+                <a key={edge.node.id} href={'/starwars/ship/'+edge.node.id} className={styles.card}>
                     <h3>{ edge.node.name }</h3>
                     <p><strong>Model:</strong> { edge.node.model }</p>
                     <p><strong>Cost:</strong> { edge.node.costInCredits }{' credits'}</p>
