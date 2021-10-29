@@ -92,3 +92,24 @@ Pre-rendering: Static Generation vs Server Side rendering. Can be defined per pa
 # Static Generation uses getStaticProps:
 * getStaticProps runs at build time in production, and…
 * Inside the function, you can fetch external data and send it as props to the page.
+
+# Serverless 
+
+In project root, run:
+
+`yarn add serverless --dev`
+
+Then run:
+
+`yarn deploy`
+
+In our serverless config, after the initial push, we will push again, while defining an alias and certificate to use a custom domain with https
+
+```yml
+cloudfront:
+      # if you want to use an existing cloudfront distribution, provide it here
+      distributionId: XYZEXAMPLE #optional
+      aliases: ["nextdemo.golferfgather.com"]
+      certificate:
+        acmCertificateArn: "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
+```

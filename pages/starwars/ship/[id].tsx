@@ -40,7 +40,7 @@ export default function ship(props) {
                 <li><strong>ID: </strong> {props.ship.id}</li>
                 <li><strong>CLASS: </strong> {props.ship.starshipClass}</li>
                 <li><strong>MANUFACTURER: </strong> <ul>{ props.ship.manufacturers.map(manufacturer => {
-                            return <li>{manufacturer}</li>
+                            return <li key={manufacturer}>{manufacturer}</li>
                         }) }</ul></li>
                 <li><strong>COST: </strong> {props.ship.costInCredits}{' credits'}</li>
                 <li><strong>CREW: </strong> {props.ship.crew}</li>

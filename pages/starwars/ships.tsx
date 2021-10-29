@@ -65,7 +65,7 @@ export async function getServerSideProps(context) {
                     <p><strong>Cost:</strong> { edge.node.costInCredits }{' credits'}</p>
                     <p><strong>Manufacturer(s):</strong> <ul>
                         { edge.node.manufacturers.map(manufacturer => {
-                            return <li>{manufacturer}</li>
+                            return <li key={manufacturer}>{manufacturer}</li>
                         }) }
                         </ul></p>
                     <p><strong>Class:</strong> { edge.node.starshipClass }</p>
