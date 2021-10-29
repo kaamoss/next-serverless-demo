@@ -8,7 +8,7 @@ export async function getStaticPaths() {
     const paths = await getAllShipIds()
     return {
       paths,
-      fallback: false
+      fallback: false //Instead of returning 404 for ids, we could fallback to on demand SSR here if we wanted to. see more https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required
     }
 }
 
